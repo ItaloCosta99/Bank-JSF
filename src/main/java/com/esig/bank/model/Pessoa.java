@@ -11,7 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -54,8 +55,9 @@ public class Pessoa implements Serializable {
 	@Column(name = "data_nascimento", nullable = false)
 	private Date dataNas;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cargoIdPessoa", orphanRemoval = true)
-	private Long cargoId;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id")
+	private Cargo cargoId;
 
 	public Long getId() {
 		return id;
@@ -137,11 +139,11 @@ public class Pessoa implements Serializable {
 		this.dataNas = dataNas;
 	}
 
-	public Long getCargoId() {
+	public Cargo getCargoId() {
 		return cargoId;
 	}
 
-	public void setCargoId(Long cargoId) {
+	public void setCargoId(Cargo cargoId) {
 		this.cargoId = cargoId;
 	}
 

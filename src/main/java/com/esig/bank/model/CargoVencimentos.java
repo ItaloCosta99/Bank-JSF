@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,13 +26,13 @@ public class CargoVencimentos implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cargoIdVencimento", orphanRemoval = true)
-	@Column(nullable = false)
-	private Long cargoId;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id")
+	private Cargo cargoId;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "vencimentoId", orphanRemoval = true)
-	@Column(nullable = false)
-	private Long vencimentoId;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id")
+	private Vencimento vencimentoId;
 
 	public Long getId() {
 		return id;
@@ -42,19 +42,19 @@ public class CargoVencimentos implements Serializable {
 		this.id = id;
 	}
 
-	public Long getCargoId() {
+	public Cargo getCargoId() {
 		return cargoId;
 	}
 
-	public void setCargoId(Long cargoId) {
+	public void setCargoId(Cargo cargoId) {
 		this.cargoId = cargoId;
 	}
 
-	public Long getVencimentoId() {
+	public Vencimento getVencimentoId() {
 		return vencimentoId;
 	}
 
-	public void setVencimentoId(Long vencimentoId) {
+	public void setVencimentoId(Vencimento vencimentoId) {
 		this.vencimentoId = vencimentoId;
 	}
 

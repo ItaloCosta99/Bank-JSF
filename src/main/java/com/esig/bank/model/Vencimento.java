@@ -4,22 +4,24 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.esig.bank.enums.TipoVencimento;
 
 @Entity
 @Table(name = "vencimentos")
-public class Vencimentos implements Serializable {
+public class Vencimento implements Serializable {
 
 	/**
 	 * 
@@ -36,7 +38,7 @@ public class Vencimentos implements Serializable {
 	@Column(nullable = false)
 	private BigDecimal valor;
 
-	@ManyToOne
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "vencimento_id")
 	private CargoVencimentos vencimentoId;
 
@@ -96,7 +98,7 @@ public class Vencimentos implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Vencimentos other = (Vencimentos) obj;
+		Vencimento other = (Vencimento) obj;
 		return Objects.equals(id, other.id);
 	}
 
