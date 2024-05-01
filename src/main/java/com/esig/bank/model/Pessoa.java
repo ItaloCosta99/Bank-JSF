@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +22,7 @@ public class Pessoa implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -54,10 +54,9 @@ public class Pessoa implements Serializable {
 	@Column(name = "data_nascimento", nullable = false)
 	private Date dataNas;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@Column(name = "cargo_id", nullable = false)
-	@JoinColumn(name = "pessoa_salario_consolidado")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cargoIdPessoa", orphanRemoval = true)
 	private Long cargoId;
+	
 
 	public Long getId() {
 		return id;
