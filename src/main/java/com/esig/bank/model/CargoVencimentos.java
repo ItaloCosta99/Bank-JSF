@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,9 +27,11 @@ public class CargoVencimentos implements Serializable {
 	private Long id;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cargoIdVencimento", orphanRemoval = true)
+	@Column(nullable = false)
 	private Long cargoId;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "vencimentoId", orphanRemoval = true)
+	@Column(nullable = false)
 	private Long vencimentoId;
 
 	public Long getId() {

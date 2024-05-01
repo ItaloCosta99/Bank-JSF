@@ -56,7 +56,6 @@ public class Pessoa implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cargoIdPessoa", orphanRemoval = true)
 	private Long cargoId;
-	
 
 	public Long getId() {
 		return id;

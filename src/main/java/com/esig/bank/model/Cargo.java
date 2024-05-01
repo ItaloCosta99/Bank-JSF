@@ -30,10 +30,12 @@ public class Cargo implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "cargo_id")
+	@Column(nullable = false)
 	private CargoVencimentos cargoIdVencimento;
 	
 	@ManyToOne
 	@JoinColumn(name= "cargo_id")
+	@Column(nullable = false)
 	private Pessoa cargoIdPessoa;
 
 

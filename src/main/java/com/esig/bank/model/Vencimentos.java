@@ -30,12 +30,12 @@ public class Vencimentos implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(length = 400)
+	@Column(nullable = false, length = 400)
 	private String descricao;
 
 	@Column(nullable = false)
 	private BigDecimal valor;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "vencimento_id")
 	private CargoVencimentos vencimentoId;
@@ -65,6 +65,14 @@ public class Vencimentos implements Serializable {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+
+	public CargoVencimentos getVencimentoId() {
+		return vencimentoId;
+	}
+
+	public void setVencimentoId(CargoVencimentos vencimentoId) {
+		this.vencimentoId = vencimentoId;
 	}
 
 	public TipoVencimento getTipo() {
