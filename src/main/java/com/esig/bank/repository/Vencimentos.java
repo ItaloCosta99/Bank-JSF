@@ -32,13 +32,13 @@ public class Vencimentos implements Serializable {
 		return query.getResultList();
 	}
 
-	public List<Vencimento> search(Long id, String nome) {
+	public List<Vencimento> search(Long id, String descricao) {
 		String queryString = "FROM vencimentos WHERE (:id is null or id = :id) "
-				+ "AND (:nome is null or UPPER(nome) like UPPER(:nome) ) ";
+				+ "AND (:descricao is null or UPPER(nome) like UPPER(:descricao) ) ";
 
 		TypedQuery<Vencimento> query = em.createQuery(queryString, Vencimento.class);
 		query.setParameter("id", id);
-		query.setParameter("nome", "%" + nome + "%");
+		query.setParameter("nome", "%" + descricao + "%");
 		return query.getResultList();
 	}
 
