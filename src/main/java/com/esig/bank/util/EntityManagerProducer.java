@@ -13,7 +13,7 @@ public class EntityManagerProducer {
 
 	private EntityManagerFactory emf;
 
-	public EntityManagerProducer(EntityManagerFactory emf) {
+	public EntityManagerProducer() {
 		this.emf = Persistence.createEntityManagerFactory("EsigBank");
 	}
 
