@@ -27,11 +27,11 @@ public class CargoVencimentos implements Serializable {
 	private Long id;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "cargo_id", referencedColumnName = "id")
 	private Cargo cargoId;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "vencimento_id", referencedColumnName = "id")
 	private Vencimento vencimentoId;
 
 	public Long getId() {
