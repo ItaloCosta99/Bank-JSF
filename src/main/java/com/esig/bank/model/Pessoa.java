@@ -56,7 +56,7 @@ public class Pessoa implements Serializable {
 	private Date dataNas;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "id", referencedColumnName = "id")
 	private Cargo cargoId;
 
 	public Long getId() {

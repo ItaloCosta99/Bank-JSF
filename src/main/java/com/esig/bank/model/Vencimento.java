@@ -4,17 +4,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.esig.bank.enums.TipoVencimento;
@@ -37,10 +33,6 @@ public class Vencimento implements Serializable {
 
 	@Column(nullable = false)
 	private BigDecimal valor;
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "vencimento_id")
-	private CargoVencimentos vencimentoId;
 
 	@Enumerated(EnumType.STRING)
 	private TipoVencimento tipo;
@@ -67,14 +59,6 @@ public class Vencimento implements Serializable {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
-	}
-
-	public CargoVencimentos getVencimentoId() {
-		return vencimentoId;
-	}
-
-	public void setVencimentoId(CargoVencimentos vencimentoId) {
-		this.vencimentoId = vencimentoId;
 	}
 
 	public TipoVencimento getTipo() {

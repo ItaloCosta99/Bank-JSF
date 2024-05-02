@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,15 +25,6 @@ public class Cargo implements Serializable {
 
 	@Column(nullable = false)
 	private String nome;
-	
-	@ManyToOne
-	@JoinColumn(name = "cargo_id_vencimento")
-	private CargoVencimentos cargoIdVencimento;
-	
-	@ManyToOne
-	@JoinColumn(name= "cargo_id_pessoa")
-	private Pessoa cargoIdPessoa;
-
 
 	public Long getId() {
 		return id;
@@ -51,22 +40,6 @@ public class Cargo implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public CargoVencimentos getCargoIdVencimento() {
-		return cargoIdVencimento;
-	}
-
-	public void setCargoIdVencimento(CargoVencimentos cargoIdVencimento) {
-		this.cargoIdVencimento = cargoIdVencimento;
-	}
-
-	public Pessoa getCargoIdPessoa() {
-		return cargoIdPessoa;
-	}
-
-	public void setCargoIdPessoa(Pessoa cargoIdPessoa) {
-		this.cargoIdPessoa = cargoIdPessoa;
 	}
 
 	@Override

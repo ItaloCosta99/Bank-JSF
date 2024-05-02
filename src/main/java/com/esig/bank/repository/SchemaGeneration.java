@@ -13,7 +13,7 @@ public class SchemaGeneration {
 	public static void main(String[] args) {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("EsigBank");
-		
+
 		EntityManager em = emf.createEntityManager();
 
 		List<Pessoa> list = em.createQuery("FROM pessoa", Pessoa.class).getResultList();
