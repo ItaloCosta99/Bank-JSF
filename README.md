@@ -22,6 +22,9 @@ Aplicação Web Java, usando a especificação JSF (JavaServer Faces) de simulan
   
 - [X] Criar testes de unidade.
 
+- [X] Campo de pesquisa.
+
+
 ## Tecnologias utilizadas
 
 - [**Eclipse IDE for Enterprise Java and Web Developers Version: 2024-03 (4.31.0)**](https://www.eclipse.org/downloads/packages/)
