@@ -63,7 +63,7 @@ Para contribuir, siga estes passos:
 - Clone (Clone) o seu fork para a sua máquina: Utilize o git para clonar o fork do repositório para a sua máquina local.
 - Crie uma branch (ramificação) para a sua contribuição: Crie uma nova branch específica para sua alteração usando git checkout -b seguido de um nome descritivo para a branch.
 - Implemente suas alterações: Faça as alterações desejadas no código.
-= Adicione e confirme suas alterações: Utilize git add para adicionar os arquivos modificados e git commit para criar um commit com uma mensagem descritiva.
+- Adicione e confirme suas alterações: Utilize git add para adicionar os arquivos modificados e git commit para criar um commit com uma mensagem descritiva.
 - Envie a sua pull request (solicitação de pull): Faça o push das alterações para o seu fork no GitHub e então crie uma pull request para o repositório principal.
 - Responda aos reviews (avaliações): Os mantenedores do projeto irão avaliar sua pull request e podem solicitar alterações. Responda a esses comentários para garantir a integração da sua contribuição.
 
