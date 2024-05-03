@@ -6,7 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 
 import com.esig.bank.dto.PessoaSalarioConsolidadoDTO;
@@ -31,12 +30,12 @@ public class Pessoas implements Serializable {
 	}
 
 	public List<Pessoa> gelAll() {
-		TypedQuery<Pessoa> query = em.createQuery("FROM pessoa", Pessoa.class);
+		TypedQuery<Pessoa> query = em.createQuery("FROM Pessoa", Pessoa.class);
 		return query.getResultList();
 	}
 
 	public List<Pessoa> search(Long id, String nome) {
-		String queryString = "FROM Colaborador WHERE (:id is null or id = :id) "
+		String queryString = "FROM Pessoa WHERE (:id is null or id = :id) "
 				+ "AND (:nome is null or UPPER(nome) like UPPER(:nome) ) ";
 
 		TypedQuery<Pessoa> query = em.createQuery(queryString, Pessoa.class);
@@ -52,7 +51,22 @@ public class Pessoas implements Serializable {
 						+ "JOIN cargo_vencimentos ON pessoa.cargo_id = cargo_vencimentos.cargo_id "
 						+ "JOIN cargo ON cargo_vencimentos.cargo_id = cargo.id "
 						+ "JOIN vencimentos ON cargo_vencimentos.vencimento_id = vencimentos.id "
-						+ "GROUP BY pessoa.id, pessoa.nome, cargo.nome ORDER BY pessoa.id", "PessoaSalarioConsolidadoDTO");
+						+ "GROUP BY pessoa.id, pessoa.nome, cargo.nome ORDER BY pessoa.id",
+				"PessoaSalarioConsolidadoDTO");
+		return query.getResultList();
+	}
+
+	public List<PessoaSalarioConsolidadoDTO> searchPessoaNome(String nome) {
+		Query query = em.createNativeQuery("SELECT * FROM ( "
+				+ "SELECT pessoa.id AS pessoa_id, pessoa.nome AS nome_pessoa, cargo.nome AS nome_cargo, "
+				+ "SUM(CASE WHEN vencimentos.tipo = 'CREDITO' THEN vencimentos.valor ELSE -vencimentos.valor END) AS salario FROM pessoa "
+				+ "JOIN cargo_vencimentos ON pessoa.cargo_id = cargo_vencimentos.cargo_id "
+				+ "JOIN cargo ON cargo_vencimentos.cargo_id = cargo.id "
+				+ "JOIN vencimentos ON cargo_vencimentos.vencimento_id = vencimentos.id "
+				+ "GROUP BY pessoa.id, pessoa.nome, cargo.nome ORDER BY pessoa.id) WHERE (:nome is null or UPPER(nome_pessoa) like UPPER(:nome) )",
+				"PessoaSalarioConsolidadoDTO");
+
+		query.setParameter("nome", nome + "%");
 		return query.getResultList();
 	}
 

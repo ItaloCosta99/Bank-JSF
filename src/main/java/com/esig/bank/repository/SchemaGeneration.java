@@ -7,8 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.Tuple;
-import javax.persistence.TypedQuery;
 
 import com.esig.bank.dto.PessoaSalarioConsolidadoDTO;
 
@@ -18,16 +16,6 @@ public class SchemaGeneration {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("EsigBank");
 
 		EntityManager em = emf.createEntityManager();
-
-		/*
-		 * Query query = em.createNativeQuery(
-		 * "SELECT p.id AS pessoa_id, p.nome AS nome_pessoa, c.nome AS nome_cargo, " +
-		 * "SUM(CASE WHEN v.tipo = 'CREDITO' THEN v.valor ELSE -v.valor END) AS salario "
-		 * + "FROM Pessoa p, CargoVencimentos cv " + "JOIN cv.cargoId c " +
-		 * "JOIN cv.vencimentoId v " + "WHERE p.cargo_id = c.id " +
-		 * "GROUP BY p.id, p.nome, c.nome " + "ORDER BY p.id ",
-		 * "PessoaSalarioConsolidadoDTO");
-		 */
 
 		Query query = em.createNativeQuery(
 				"SELECT pessoa.id AS pessoa_id, pessoa.nome AS nome_pessoa, cargo.nome AS nome_cargo, "

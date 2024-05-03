@@ -9,26 +9,93 @@
 	<ui:define name="titulo">Listagem de Pessoas</ui:define>
 	<p:divider />
 	<ui:define name="conteudo">
-		<p:dataTable showGridlines="true" paginator="true" rows="10"
-			value="#{pscBean.pscList}" var="psc" paginatorPosition="bottom">
-			<f:facet name="header">
-				Pessoas Cadastradas
-			</f:facet>
-			<p:column headerText="ID">
-				<h:outputText value="#{psc.id}" />
-			</p:column>
-			<p:column headerText="Nome">
-				<h:outputText value="#{psc.nomePessoa}" />
-			</p:column>
-			<p:column headerText="Cargo">
-				<h:outputText value="#{psc.nomeCargo}" />
-			</p:column>
-			<p:column headerText="Salario">
-				<h:outputText value="R$ #{psc.salario}" />
-			</p:column>
-			<f:facet name="footer">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:inputText id="termoPesquisa" placeholder="Digite aqui um nome"
+						size="30" value="#{pscBean.termoPesquisa}" />
+					<p:spacer width="8px" />
+					<p:commandButton value="Pesquisar" icon="pi pi-search"
+						actionListener="#{pscBean.pesquisar}" update="pessoasDataTable"
+						process="@this termoPesquisa" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="Cadastrar" icon="pi pi-plus"
+						actionListener="#{pscBean.prepararNovaPessoa}"
+						onclick="PF('pscWidget').show()" update="pessoaDialog"
+						process="@this" />
+					<p:spacer width="8px" />
+					<p:commandButton title="Editar" icon="pi pi-user-edit" />
+					<p:spacer width="8px" />
+					<p:commandButton title="Excluir" icon="pi pi-trash" />
+					<p:spacer width="8px" />
+
+					<p:commandButton title="Exportar para o PDF" icon="pi pi-file-pdf" />
+				</f:facet>
+			</p:toolbar>
+			<p:dataTable id="pessoasDataTable" showGridlines="true"
+				paginator="true" rows="10" value="#{pscBean.pscList}" var="psc"
+				paginatorPosition="bottom" clientCache="true">
+				<f:facet name="header">
+					Pessoas Cadastradas
+				</f:facet>
+				<p:column headerText="ID">
+					<h:outputText value="#{psc.id}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{psc.nomePessoa}" />
+				</p:column>
+				<p:column headerText="Cargo">
+					<h:outputText value="#{psc.nomeCargo}" />
+				</p:column>
+				<p:column headerText="Salario">
+					<h:outputText value="R$ #{psc.salario}" />
+				</p:column>
+				<f:facet name="footer">
 				Total de registros: #{fn:length(pscBean.pscList)}
 			</f:facet>
-		</p:dataTable>
+			</p:dataTable>
+
+			<p:dialog id="pessoaDialog" header="Cadastrar Pessoa"
+				widgetVar="pscWidget" modal="true" resizable="false"
+				draggable="false">
+				<h:panelGrid id="pessoasPanelGrid" columns="2"
+					rendered="#{pscBean.pessoa ne null}">
+					<p:outputLabel value="Nome: " for="nome" />
+					<p:inputText id="nome" size="80" maxlength="120"
+						value="#{pscBean.pessoa.nome}" />
+					<p:outputLabel value="Cidade " for="cidade" />
+					<p:inputText id="cidade" size="80" maxlength="120"
+						value="#{pscBean.pessoa.cidade}" />
+					<p:outputLabel value="Email: " for="email" />
+					<p:inputText id="email" size="80" maxlength="120"
+						value="#{pscBean.pessoa.email}" />
+					<p:outputLabel value="Endereço: " for="endereco" />
+					<p:inputText id="endereco" size="80" maxlength="120"
+						value="#{pscBean.pessoa.endereco}" />
+					<p:outputLabel value="País: " for="pais" />
+					<p:inputText id="pais" size="80" maxlength="120"
+						value="#{pscBean.pessoa.pais}" />
+					<p:outputLabel value="Usuario: " for="usuario" />
+					<p:inputText id="usuario" size="80" maxlength="120"
+						value="#{pscBean.pessoa.usuario}" />
+					<p:outputLabel value="Telefone " for="telefone" />
+					<p:inputMask id="telefone" size="80" maxlength="120"
+						mask="(99) 99999-9999" value="#{pscBean.pessoa.telefone}" />
+					<p:outputLabel value="Data de Nascimento: " for="dataNas" />
+					<p:calendar id="dataNas" pattern="yyyy/dd/MM"
+						value="#{pscBean.pessoa.dataNas}" />
+					<p:outputLabel value="Cargo: " for="cargo" />
+					<p:selectOneMenu id="cargo" value="#{pscBean.pessoa.cargoId}">
+						<f:selectItem itemLabel="Selecione..." />
+						<f:selectItems value="#{pscBean.tiposCargo}" var="tipoCargo"
+							itemLabel="#{tipoCargo}" itemValue="#{tipoCargo.value}" />
+					</p:selectOneMenu>
+					<p:commandButton value="Salvar" actionListener="#{pscBean.salvar}"
+						update="pessoasDataTable pessoasPanelGrid"
+						oncomplete="PF('pscWidget').hide()" process="pessoaDialog" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
 	</ui:define>
 </ui:composition>
