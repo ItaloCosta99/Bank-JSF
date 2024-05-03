@@ -1,22 +1,30 @@
 package com.esig.bank.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+
+import com.esig.bank.dto.PessoaSalarioConsolidadoDTO;
 
 @Entity
 @Table(name = "pessoa")
+@SqlResultSetMapping(name = "PessoaSalarioConsolidadoDTO", classes = @ConstructorResult(targetClass = PessoaSalarioConsolidadoDTO.class, columns = {
+		@ColumnResult(name = "pessoa_id", type = Long.class), @ColumnResult(name = "nome_pessoa"),
+		@ColumnResult(name = "nome_cargo"), @ColumnResult(name = "salario", type = BigDecimal.class) }))
 public class Pessoa implements Serializable {
 
 	/**
@@ -55,8 +63,8 @@ public class Pessoa implements Serializable {
 	@Column(name = "data_nascimento", nullable = false)
 	private Date dataNas;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "cargo_id", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cargo_id")
 	private Cargo cargoId;
 
 	public Long getId() {
