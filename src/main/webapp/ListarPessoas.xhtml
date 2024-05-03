@@ -4,22 +4,31 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="WEB-INF/template/template.xhtml">
 	<ui:define name="titulo">Listagem de Pessoas</ui:define>
+	<p:divider />
 	<ui:define name="conteudo">
-		<p:dataTable showGridlines="true" paginator="true" rows="10" value="#{pscBean.pscList}" var="psc" paginatorPosition="bottom">
+		<p:dataTable showGridlines="true" paginator="true" rows="10"
+			value="#{pscBean.pscList}" var="psc" paginatorPosition="bottom">
+			<f:facet name="header">
+				Pessoas Cadastradas
+			</f:facet>
 			<p:column headerText="ID">
-				<h:outputText value="#{psc.id}"/>
+				<h:outputText value="#{psc.id}" />
 			</p:column>
 			<p:column headerText="Nome">
-				<h:outputText value="#{psc.nomePessoa}"/>
+				<h:outputText value="#{psc.nomePessoa}" />
 			</p:column>
 			<p:column headerText="Cargo">
-				<h:outputText value="#{psc.nomeCargo}"/>
+				<h:outputText value="#{psc.nomeCargo}" />
 			</p:column>
 			<p:column headerText="Salario">
-				<h:outputText value="R$ #{psc.salario}"/>
+				<h:outputText value="R$ #{psc.salario}" />
 			</p:column>
+			<f:facet name="footer">
+				Total de registros: #{fn:length(pscBean.pscList)}
+			</f:facet>
 		</p:dataTable>
 	</ui:define>
 </ui:composition>
