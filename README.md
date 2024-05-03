@@ -20,7 +20,7 @@ Aplicação Web Java, usando a especificação JSF (JavaServer Faces) de simulan
   
 - [ ] Criar um CRUD de usuário e implementar autenticação via Login e Senha.
   
-- [ ] Criar testes de unidade.
+- [X] Criar testes de unidade.
 
 ## Tecnologias utilizadas
 
